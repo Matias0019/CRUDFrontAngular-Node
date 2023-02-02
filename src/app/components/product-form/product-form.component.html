@@ -1,0 +1,73 @@
+<h2 class="text-center mx-auto mt-2" >Formulario de prueba</h2>
+<form class="m-3  p-3" (ngSubmit)="onSubmit()" [formGroup]="form">
+<div class="grid grid-cols-1 sm:grid-cols-2  gap-4">
+<mat-form-field appearance="fill">
+    <mat-label>Ingrese su nombre</mat-label>
+    <input formControlName="nombre" matInput>
+    <mat-error *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">Este campo es requerido</mat-error>
+    <mat-error *ngIf="form.get('nombre')?.hasError('minlength') && form.get('nombre')?.touched">Minimo 2 caracteres</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Provincia</mat-label>
+    <mat-select formControlName="provincia">
+      <mat-option value="mendoza">Mendoza</mat-option>
+      <mat-option value="buenos aires">Buenos Aires</mat-option>
+      <mat-option value="cordoba">Cordoba</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('provincia')?.hasError('required') && form.get('provincia')?.touched">Este campo es requerido</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Descripcion de tareas</mat-label>
+    <textarea formControlName="tareas" matInput></textarea>
+    <mat-error *ngIf="form.get('tareas')?.hasError('required') && form.get('tareas')?.touched">Este campo es requerido</mat-error>
+    <mat-error *ngIf="form.get('tareas')?.hasError('maxlength') && form.get('tareas')?.touched">Maximo 512 caracteres</mat-error>
+  </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput placeholder="pat@example.com" >
+      <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">Este campo es requerido</mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">Ingrese un email valido</mat-error>
+    </mat-form-field>
+  
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">Este campo es requerido</mat-error>
+    <mat-error *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched">Minimo 8 caracteres</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Ganancias estimadas</mat-label>
+      <input formControlName="ganancias" matInput type="number" class="text-right" placeholder="0">
+      <span matPrefix>$&nbsp;</span>
+      <mat-error *ngIf="form.get('ganancias')?.hasError('required') && form.get('ganancias')?.touched">Este campo es requerido</mat-error>
+    </mat-form-field>
+  
+      <div class="example-container">
+        <label>Modalidad: </label>
+        <mat-radio-group formControlName="modalidad" >
+          <mat-radio-button class="mx-3" value="remoto">Remoto</mat-radio-button>
+          <mat-radio-button class="mx-3" value="hibrido">Hibrido</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    
+  
+    <mat-checkbox formControlName="disponibilidad">Disponibilidad inmediata</mat-checkbox>
+    <mat-slide-toggle formControlName="envio">Envio a domicilio</mat-slide-toggle>
+  <section >
+    <h4>Selecciona una o mas opciones:</h4>
+    <p><mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox></p>
+    <p><mat-checkbox formControlName="extracheese">Extra Cheese</mat-checkbox></p>
+    <p><mat-checkbox formControlName="mushroom">Mushroom</mat-checkbox></p>
+  </section>
+  
+
+</div>
+<button  class="mt-3" mat-raised-button color="primary" [disabled]="form.invalid">Enviar</button>
+</form>
+
