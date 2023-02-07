@@ -2,15 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 //Componentes
-import { ListProductsComponent } from './components/list-products/list-products.component';
-import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
-import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductFormModule } from './components/product-form/product-form.module';
 
 const routes: Routes = [
-  { path: '', component: ListProductsComponent},
-  { path: 'add', component: AddEditProductComponent},
-  { path: 'edit/:id', component: AddEditProductComponent},
-  { path: 'form', component: ProductFormComponent},
+ 
+  {path:'', loadChildren: ()=> 
+  import('./components/list-products/list-products.module').then(m => m.ListProductsModule)
+},
+  {path:'add', loadChildren: ()=> 
+  import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
+},
+{path:'edit/:id', loadChildren: ()=> 
+  import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
+},
+  { path: 'form', loadChildren: ()=> 
+  import('./components/product-form/product-form.module').then(m => ProductFormModule)},
+
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
