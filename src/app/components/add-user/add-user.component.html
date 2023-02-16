@@ -1,0 +1,35 @@
+<div class="row mt-1">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 25rem;">
+        <div class="card-header text-center">{{ operacion }} Product</div>
+        <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="addUser()">
+        <input formControlName="name" type="text" class="form-control" placeholder="Enter name"/>
+        <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+            Name is <strong>required</strong>
+        </span>
+        <input formControlName="email" type="email" class="form-control mt-2" placeholder="Enter email"/>
+        <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+            email is <strong>required</strong>
+        </span>
+        <input formControlName="password" type="password" class="form-control mt-2" placeholder="Enter password"/>
+        <span *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
+            password is <strong>required</strong>
+        </span>
+        <input formControlName="role" type="text" class="form-control mt-2" placeholder="Enter role"/>
+        <span *ngIf="form.get('role')?.hasError('required') && form.get('role')?.touched">
+            role is <strong>required</strong>
+        </span>
+        <div class="row mt-2 text-center">
+        <div class="col-lg-6">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+        <div class="col-lg-6">
+        <button routerLink="/v1/users" type="button" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
+        </form>
+        </div>
+        </div>
+    </div>
+</div>

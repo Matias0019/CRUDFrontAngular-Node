@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="title">
+        <h4>List of Users</h4>
+        <button type="button" class="btn btn-success" routerLink="/v1/users/add">New product</button>
+    </div>
+
+    <table class="table bg-blue-500">
+        <thead>
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Verified</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listUsers" class="table-active">
+              <td>{{item?.id}}</td>
+              <td>{{item?.name}}</td>
+              <td>{{item?.email}}</td>
+              <td>{{item?.role}}</td>
+              <td>{{item?.isEmailVerified}}</td>
+            <td>
+              <button routerLink="/v1/users/edit/{{item.id}}" type="button" class="btn btn-info btn-sm">Edit</button>
+              <button (click)="deleteUser(item.id!)" type="button" class="btn btn-danger btn-sm ms-2">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 *ngIf="listUsers.length == 0">No hay usuarios para mostrar</h5>
+</div>

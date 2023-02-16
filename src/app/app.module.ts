@@ -5,15 +5,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TokenInterceptorService } from './interceptors/token-interceptor.service';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,14 @@ import { ToastrModule } from 'ngx-toastr';
       preventDuplicates: true,
     }),
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+    },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
