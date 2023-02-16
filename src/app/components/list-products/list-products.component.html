@@ -2,7 +2,7 @@
 <div *ngIf="!loading" class="container">
     <div class="title">
         <h4>List of Products</h4>
-        <button type="button" class="btn btn-success" routerLink="/add">New product</button>
+        <button type="button" class="btn btn-success" routerLink="/v1/products/add">New product</button>
     </div>
 
     <table *ngIf="listProducts.length > 0" class="table table-hover">
@@ -22,7 +22,7 @@
             <td>{{item.price | currency}}</td>
             <td>{{item.stock}}</td>
             <td>
-                <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-info btn-sm">Edit</button>
+                <button routerLink="/v1/products/edit/{{item.id}}" type="button" class="btn btn-info btn-sm">Edit</button>
                 <button (click)="deleteProduct(item.id!)" type="button" class="btn btn-danger btn-sm ms-2">Delete</button>
             </td>
           </tr>

@@ -7,16 +7,25 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
  
-  {path:'', loadChildren: ()=> 
-  import('./components/list-products/list-products.module').then(m => m.ListProductsModule)
-},
-
-{path:'v1/auth/login', loadChildren: ()=> 
+  
+  {path:'v1/auth/login', loadChildren: ()=> 
   import('./components/login/login.module').then(m => m.LoginModule)
 },
 
 {path:'v1/auth/register', loadChildren: ()=> 
-  import('./components/register/register.module').then(m => m.RegisterModule)
+import('./components/register/register.module').then(m => m.RegisterModule)
+},
+
+{path:'v1/products', loadChildren: ()=> 
+import('./components/list-products/list-products.module').then(m => m.ListProductsModule)
+},
+
+{path:'v1/products/add', loadChildren: ()=> 
+import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
+},
+
+{path:'v1/products/edit/:id', loadChildren: ()=> 
+import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
 },
 
 {path:'v1/users', canActivate: [AuthGuard], loadChildren: ()=> 
@@ -34,7 +43,9 @@ import('./components/add-edit-user/add-edit-user.module').then(m => m.AddEditUse
   { path: 'form', loadChildren: ()=> 
   import('./components/product-form/product-form.module').then(m => ProductFormModule)},
 
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+  {path: '', redirectTo: 'v1/products', pathMatch: 'full'},
+
+  {path: '**', redirectTo: 'v1/products', pathMatch: 'full'}
 ];
 
 @NgModule({

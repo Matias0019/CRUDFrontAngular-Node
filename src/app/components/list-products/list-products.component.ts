@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
+import { GetList } from 'src/app/interfaces/get-list';
 
 @Component({
   selector: 'app-list-products',
@@ -9,7 +10,8 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit {
-  listProducts: Product[] = [];
+  results: GetList = {};
+  listProducts: Array<Product> = [];
   loading: boolean = false;
 
   constructor(private _productService: ProductService, private toastr: ToastrService) { }
@@ -19,14 +21,12 @@ export class ListProductsComponent implements OnInit {
   }
 
   getListProducts(){
-    this.loading = true;
-    this._productService.getListProducts().subscribe((data: Product[]) => {
-      this.listProducts = data;
-      this.loading = false;
+    this._productService.getList().subscribe((data: any) => {
+      this.listProducts = data.results;
     })
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     this.loading = true;
     this._productService.deleteProduct(id).subscribe(() => {
       this.getListProducts();

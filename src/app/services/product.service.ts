@@ -34,6 +34,6 @@ export class ProductService {
   }
 
   updateProduct(id: string, product: Product): Observable<void> {
-    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, product);
+    return this.http.patch<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, product);
   }
 }
