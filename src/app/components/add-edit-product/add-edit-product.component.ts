@@ -13,7 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class AddEditProductComponent implements OnInit {
   form: FormGroup;
   loading: boolean = false;
-  id: number;
+  id: string;
   operacion: string = 'New';
 
   constructor(private fb: FormBuilder, private _productService: ProductService,
@@ -24,18 +24,18 @@ export class AddEditProductComponent implements OnInit {
       price: [null, Validators.required],
       stock: [null, Validators.required]
     })
-    this.id = Number(aRouter.snapshot.paramMap.get('id'));
+    this.id = String(aRouter.snapshot.paramMap.get('id'));
     
   }
 
   ngOnInit(): void {
-    if(this.id != 0) {
+    if(this.id != "null") {
       this.operacion = 'Update';
       this.getProduct(this.id);
     }
   }
 
-  getProduct(id: number){
+  getProduct(id: string){
     this.loading = true;
     this._productService.getProduct(id).subscribe((data: Product) => {
       this.loading = false;
@@ -58,19 +58,18 @@ export class AddEditProductComponent implements OnInit {
 
     this.loading = true;
 
-    if(this.id != 0){
-      
-      product.id = this.id;
+    if(this.id != "null"){
+
       this._productService.updateProduct(this.id, product).subscribe(() => {
         this.loading = false;
         this.toastr.info(`El producto ${product.name} fue actualizado con exito`, `Producto actualizado`);
-        this.router.navigate(['/']);
+        this.router.navigate(['/v1/products']);
       })
     } else {
     this._productService.saveProduct(product).subscribe(() => {
       this.loading = false;
       this.toastr.success(`El producto ${product.name} fue registrado con exito`, `Producto registrado`);
-      this.router.navigate(['/']);
+      this.router.navigate(['/v1/products']);
     })
     }
 
