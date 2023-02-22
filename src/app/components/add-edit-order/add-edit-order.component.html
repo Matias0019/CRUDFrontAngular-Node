@@ -1,0 +1,50 @@
+<div class="row mt-1">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 25rem;">
+        <div class="card-header text-center">{{ operacion }} Order</div>
+        <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="addOrder()">
+        <input formControlName="address" type="text" class="form-control" placeholder="Enter address"/>
+        <span *ngIf="form.get('address')?.hasError('required') && form.get('address')?.touched">
+            address is <strong>required</strong>
+        </span>
+        <input formControlName="country" type="text" class="form-control mt-2" placeholder="Enter country"/>
+        <span *ngIf="form.get('country')?.hasError('required') && form.get('country')?.touched">
+            country is <strong>required</strong>
+        </span>
+        <input formControlName="phone" type="number" class="form-control mt-2" placeholder="Enter phone"/>
+        <span *ngIf="form.get('phone')?.hasError('required') && form.get('phone')?.touched">
+            phone is <strong>required</strong>
+        </span>
+        <input formControlName="total" type="number" class="form-control mt-2" placeholder="Enter total"/>
+        <span *ngIf="form.get('total')?.hasError('required') && form.get('total')?.touched">
+            total is <strong>required</strong>
+        </span>
+        
+        <!-- <select multiple formControlName="product" class="form-control mt-2">
+            <option *ngFor="let item of listProducts" [ngValue]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <span *ngIf="form.get('product')?.hasError('required') && form.get('product')?.touched">
+            product is <strong>required</strong>
+        </span> -->
+        <mat-form-field appearance="fill">
+            <mat-label>Productos:</mat-label>
+            <mat-select formControlName="product" multiple>
+                <mat-option *ngFor="let item of product" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="row mt-2 text-center">
+        <div class="col-lg-6">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+        <div class="col-lg-6">
+        <button routerLink="/v1/orders" type="button" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
+        </form>
+        </div>
+        </div>
+    </div>
+</div>

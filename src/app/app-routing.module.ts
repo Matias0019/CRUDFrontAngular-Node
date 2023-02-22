@@ -16,16 +16,28 @@ const routes: Routes = [
 import('./components/register/register.module').then(m => m.RegisterModule)
 },
 
-{path:'v1/products', loadChildren: ()=> 
+{path:'v1/products', canActivate: [AuthGuard], loadChildren: ()=> 
 import('./components/list-products/list-products.module').then(m => m.ListProductsModule)
 },
 
-{path:'v1/products/add', loadChildren: ()=> 
+{path:'v1/products/add', canActivate: [AuthGuard], loadChildren: ()=> 
 import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
 },
 
-{path:'v1/products/edit/:id', loadChildren: ()=> 
+{path:'v1/products/edit/:id', canActivate: [AuthGuard], loadChildren: ()=> 
 import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
+},
+
+{path:'v1/orders', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/list-orders/list-orders.module').then(m => m.ListOrdersModule)
+},
+
+{path:'v1/orders/add', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/add-edit-order/add-edit-order.module').then(m => m.AddEditOrderModule)
+},
+
+{path:'v1/orders/edit/:id', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/add-edit-order/add-edit-order.module').then(m => m.AddEditOrderModule)
 },
 
 {path:'v1/users', canActivate: [AuthGuard], loadChildren: ()=> 

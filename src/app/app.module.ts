@@ -12,7 +12,6 @@ import { TokenInterceptorService } from './interceptors/token-interceptor.servic
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
