@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="title">
+        <h4>List of Cart</h4>
+        <button type="button" class="btn btn-success" routerLink="/v1/cart/add">New cart</button>
+    </div>
+
+    <table *ngIf="listCart.length > 0" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ProductId</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listCart" class="table-active">
+            <td>{{item.productId}}</td>
+            <td>{{item.quantity}}</td>
+            <td>
+                <button routerLink="/v1/cart/edit/{{item.id}}" type="button" class="btn btn-info btn-sm">Edit</button>
+                <button (click)="deleteCart(item.id!)" type="button" class="btn btn-danger btn-sm ms-2">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 *ngIf="listCart.length == 0">No hay carrito para mostrar</h5>
+</div>

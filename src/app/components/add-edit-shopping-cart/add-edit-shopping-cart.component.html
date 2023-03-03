@@ -1,15 +1,21 @@
 <div class="row mt-1">
     <div class="col-lg-4 offset-lg-4">
         <div class="card text-white bg-secondary mb-3" style="max-width: 25rem;">
-        <div class="card-header text-center">{{ operacion }} Order</div>
+        <div class="card-header text-center">{{ operacion }} Cart</div>
         <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="addOrder()">
+        <form [formGroup]="form" (ngSubmit)="addCart()">
         <mat-form-field appearance="fill">
-            <mat-label>Carts:</mat-label>
-            <mat-select formControlName="carts" multiple>
-                <mat-option *ngFor="let item of carts" [value]="item">{{item.productId}}</mat-option>
+            <mat-label>Productos:</mat-label>
+            <mat-select formControlName="productId">
+                <mat-option *ngFor="let item of productId" [value]="item.id">{{item.name}}</mat-option>
             </mat-select>
         </mat-form-field>
+       
+        <input formControlName="quantity" type="number" class="form-control mt-2" placeholder="Enter quantity"/>
+        <span *ngIf="form.get('quantity')?.hasError('required') && form.get('quantity')?.touched">
+            quantity is <strong>required</strong>
+        </span>
+
         <div class="row mt-2 text-center">
         <div class="col-lg-6">
         <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Confirm</button>

@@ -28,6 +28,18 @@ import('./components/add-edit-product/add-edit-product.module').then(m => m.AddE
 import('./components/add-edit-product/add-edit-product.module').then(m => m.AddEditProductModule)
 },
 
+{path:'v1/cart', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/list-shopping-cart/list-shopping-cart.module').then(m => m.ListShoppingCartModule)
+},
+
+{path:'v1/cart/add', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/add-edit-shopping-cart/add-edit-shopping-cart.module').then(m => m.AddEditShoppingCartModule)
+},
+
+{path:'v1/cart/edit/:id', canActivate: [AuthGuard], loadChildren: ()=> 
+import('./components/add-edit-shopping-cart/add-edit-shopping-cart.module').then(m => m.AddEditShoppingCartModule)
+},
+
 {path:'v1/orders', canActivate: [AuthGuard], loadChildren: ()=> 
 import('./components/list-orders/list-orders.module').then(m => m.ListOrdersModule)
 },

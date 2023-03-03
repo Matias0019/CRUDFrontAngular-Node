@@ -6,7 +6,6 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login } from '../interfaces/login';
 import { Register } from '../interfaces/register';
-import { User } from '../interfaces/user';
 
 
 @Injectable({

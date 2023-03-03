@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Cart } from 'src/app/interfaces/cart';
 import { GetList } from 'src/app/interfaces/get-list';
 import { Order } from 'src/app/interfaces/order';
 import { Product } from 'src/app/interfaces/product';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -18,16 +20,12 @@ export class AddEditOrderComponent implements OnInit {
   id: string;
   operacion: string = 'New';
   results: GetList = {};
-  product: Array<Product> = [];
+  carts: Array<Cart> = [];
 
-  constructor(private fb: FormBuilder, private orderService: OrderService, private productService: ProductService,
+  constructor(private fb: FormBuilder, private orderService: OrderService, private cartService: CartService,
     private router: Router, private toastr: ToastrService, private aRouter: ActivatedRoute) { 
       this.form = this.fb.group({
-        address: ['', Validators.required],
-        country: ['', Validators.required],
-        phone: [null, Validators.required],
-        total: [null, Validators.required],
-        product: [null, Validators.required],
+        carts: [null, Validators.required],
       })
       this.id = String(aRouter.snapshot.paramMap.get('id'));
     }
@@ -37,34 +35,26 @@ export class AddEditOrderComponent implements OnInit {
       this.operacion = 'Update';
       this.getOrder(this.id);
     }
-    this.getListProducts();
+    this.getListCarts();
   }
 
-  getListProducts(){
-    this.productService.getList().subscribe((data: any) => {
-      this.product = data.results;
+  getListCarts(){
+    this.cartService.getList().subscribe((data: any) => {
+      this.carts = data.results;
     })
   }
 
   getOrder(id: string){
     this.orderService.getOrder(id).subscribe((data: Order) => {
       this.form.setValue({
-        address: data.address,
-        country: data.country,
-        phone: data.phone,
-        total: data.total,
-        product: data.product,
+        carts: data.carts,
       })
     })
   }
 
   addOrder(){
     const order: Order = {
-      address: this.form.value.address,
-      country: this.form.value.country,
-      phone: this.form.value.phone,
-      total: this.form.value.total,
-      product: this.form.value.product
+      carts: this.form.value.carts
     }
 
     if(this.id != "null"){
